@@ -12,7 +12,7 @@ import { ingredientsType } from '../../utils/propTypesConst';
 function BurgerMain(props) {
   console.log(props);
   return (
-    <div className={styles.main}>
+    <main className={styles.main}>
       <section className="mr-10">
         <h1 className={'text text_type_main-large mt-10 mb-5'} >
           Соберите бургер
@@ -22,7 +22,7 @@ function BurgerMain(props) {
       <section>
         <BurgerConstructor data={props.data} setModalOpen={props.setModalOpen}/>
       </section>
-    </div>
+    </main>
   );
 
 }

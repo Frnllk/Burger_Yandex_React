@@ -10,7 +10,7 @@ function AppHeader() {
   const [activeMenuItem, setactiveMenuItem] = React.useState('constructor');
 
   return (
-    <div className={clsx(headerStyles.mainDiv, 'mt-10')}>
+    <header className={clsx(headerStyles.mainDiv, 'mt-10')}>
       <nav className={clsx(headerStyles.header, 'mt-10')}>
         <section className={headerStyles.flex} >
           <a href="#" className={
@@ -42,7 +42,7 @@ function AppHeader() {
           </a>
         </section>
       </nav>
-    </div>
+    </header>
   );
 
 }

@@ -15,11 +15,11 @@ function Modal(props) {
     const handlerEsc = (e) => {
         if (e.key === 'Escape') {
             e.preventDefault();
-            modalOverlayClick();
+            closeModal();
         }
     }
 
-    const modalOverlayClick = () => {
+    const closeModal = () => {
         props.setModaClose();
     }
 
@@ -32,7 +32,7 @@ function Modal(props) {
 
     return ReactDOM.createPortal(
         <div>
-            <ModalOverlay onClick={modalOverlayClick} />
+            <ModalOverlay onClick={closeModal} />
             <div className={styles.modal}>
                 <div className={clsx(styles.header,' mt-10 mr-10 ml-10')}>
                     <h1 className={' text text_type_main-large'}>

@@ -14,7 +14,7 @@ function BurgerConstructor(props) {
 
   const getOrderModal = () => {
     const modalContent = <OrderDetails order={'123456'} />;
-    const modalHeader = 'TestTitle';
+    const modalHeader = ' ';
     props.setModalOpen(modalContent, modalHeader);
   }
 
@@ -33,6 +33,7 @@ function BurgerConstructor(props) {
       )}
       <section className={clsx(styles.contentList, ' mt-6 mb-6 pr-4')}>
         {props.data.map((item) => (
+        item.type != 'bun' && (
           <div className={styles.flex} key={item._id}>
             <DragIcon type="primary" />
             <ConstructorElement
@@ -41,6 +42,7 @@ function BurgerConstructor(props) {
               thumbnail={item.image_mobile}
             />
           </div>
+          )
         ))}
       </section>
       {bun && (

@@ -33,16 +33,22 @@ function BurgerIngredients(props) {
     );
   };
 
+  const scrollToTab = (value) => {
+    setSection(value);
+    const element = document.querySelector(`#${value}`);
+    element.scrollIntoView({ block: 'start',  behavior: 'smooth' });
+  }
+
   return (
     <section className={styles.main}>
       <div className={styles.flex}>
-        <Tab value="bread" active={section === 'bread'} onClick={() => setSection('bread')}>
+        <Tab value="bread" active={section === 'bread'} onClick={() => scrollToTab('bread')}>
           Булки
         </Tab>
-        <Tab value="sauce" active={section === 'sauce'} onClick={() => setSection('sauce')}>
+        <Tab value="sauce" active={section === 'sauce'} onClick={() => scrollToTab('sauce')}>
           Соусы
         </Tab>
-        <Tab value="topping" active={section === 'topping'} onClick={() => setSection('topping')}>
+        <Tab value="topping" active={section === 'topping'} onClick={() => scrollToTab('topping')}>
           Начинки
         </Tab>
       </div>

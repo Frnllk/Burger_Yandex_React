@@ -1,17 +1,20 @@
 import { LOAD_INGREDIENTS, ORDER_NUMBER, ORDER_CLEAR } from './index';
 
-const URL = 'https://norma.nomoreparties.space/api/ingredients';
-const orderURL = 'https://norma.nomoreparties.space/api/orders';
+import  baseUrl  from '../../utils/urlConst.js';
+const contentURL = new URL('ingredients', baseUrl );
+const orderURL = new URL('orders', baseUrl ); 
+
+function checkResponse(response) {
+  if (response.ok) {
+    return response.json();
+  }
+  return Promise.reject(`Ошибка ${response.status}`);
+}
 
 export function getData() {
   return function (dispatch) {
-    fetch(URL)
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-        return Promise.reject(`Ошибка ${response.status}`);
-      })
+    fetch(contentURL)
+      .then(checkResponse)
       .then((response) => {
           dispatch({
             type: LOAD_INGREDIENTS,
@@ -36,12 +39,7 @@ export function postOrder(data) {
         ingredients: orders,
       }),
     })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-        return Promise.reject(`Ошибка ${response.status}`);
-      })
+      .then(checkResponse)
       .then((response) => {
           dispatch({
             type: ORDER_NUMBER,

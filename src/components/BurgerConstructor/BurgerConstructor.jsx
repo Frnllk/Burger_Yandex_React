@@ -23,7 +23,6 @@ function BurgerConstructor(props) {
 
   const data = useSelector((store) => store.mainReducer.constructor);
   const bun = data.find((item) => item.type === 'bun');
-  const uniqueId = Date.now().toString(36) + Math.random().toString(36).substr(2);
 
   React.useEffect(() => {
     setTotal();
@@ -33,6 +32,7 @@ function BurgerConstructor(props) {
   const [, dropTarget] = useDrop({
     accept: 'ingredient',
     drop(item) {
+      const uniqueId = Date.now().toString(36) + Math.random().toString(36).substr(2);
       let qnt = 1;
       let selectedBun = data.find((el) => el.type === 'bun');
       if (item.type === 'bun'){
@@ -99,6 +99,7 @@ function BurgerConstructor(props) {
              <IngredientConstructor
                 item={elem}
                 index={index}
+                key={elem.uniqueId}
                 dragElement={dragElement}
               />
           )

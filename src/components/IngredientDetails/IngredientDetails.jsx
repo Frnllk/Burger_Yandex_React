@@ -1,11 +1,17 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+
 import clsx from 'clsx';
 
 import styles from './IngredientDetails.module.css';
 
 function IngredientDetails(props) {
-  const item = useSelector((store) => store.mainReducer.ingredient);
+  //const item = useSelector((store) => store.mainReducer.ingredient);
+  let { id } = useParams();
+  const items = useSelector((store) => store.burgerReducer.ingredients);
+  const item = items.find((el) => el._id === id);
+  
   return (
     <div className={styles.main}>
       <section className={styles.textColor}>

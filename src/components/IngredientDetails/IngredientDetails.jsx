@@ -7,10 +7,10 @@ import clsx from 'clsx';
 import styles from './IngredientDetails.module.css';
 
 function IngredientDetails(props) {
-  //const item = useSelector((store) => store.mainReducer.ingredient);
   let { id } = useParams();
-  const items = useSelector((store) => store.burgerReducer.ingredients);
+  const items = useSelector((store) => store.mainReducer.ingredients);
   const item = items.find((el) => el._id === id);
+
   
   return (
     <div className={styles.main}>

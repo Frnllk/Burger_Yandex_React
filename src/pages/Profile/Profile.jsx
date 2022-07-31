@@ -7,7 +7,7 @@ import { Input, PasswordInput, EmailInput, Button } from '@ya.praktikum/react-de
 import styles from './Profile.module.css';
 import clsx from 'clsx';
 
-import { updateUser, logout } from '../../../services/actions/authActions';
+import { updateUser, logout } from '../../services/actions/authActions';
 
 function Profile() {
     const dispatch = useDispatch();

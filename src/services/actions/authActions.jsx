@@ -10,7 +10,7 @@ const userURL = new URL('user', authURL );
 const token = new URL('token', authURL );
 
 
-const checkReponse = (response) => {
+export const checkReponse = (response) => {
   return response.ok ? response.json() : response.json().then((err) => Promise.reject(err));
 };
 

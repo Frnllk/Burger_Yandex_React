@@ -1,17 +1,9 @@
+import { checkReponse } from '../services/actions/authActions';
 import  baseUrl  from './urlConst';
 const authURL = new URL('auth/', baseUrl );
 
 const forgotPasswordURL = new URL('password-reset/', baseUrl );
 const resetPasswordURL = new URL('reset', forgotPasswordURL );
-
-const checkReponse = (response) => {
-  (response) => {
-    if (!response.ok) {
-      return Promise.reject(`Ошибка: ${response.status}`);
-    }
-    return response.json();
-  }
-}
 
 export const forgotPassword = (email) => {
   return fetch(forgotPasswordURL, {
@@ -23,7 +15,7 @@ export const forgotPassword = (email) => {
     body: JSON.stringify({
       email: email,
     }),
-  }).then(checkReponse(response));
+  }).then(checkReponse);
 };
 
 export const resetPassword = (password, code) => {
@@ -37,5 +29,5 @@ export const resetPassword = (password, code) => {
       password: password,
       token: code,
     }),
-  }).then(checkReponse(response));
+  }).then(checkReponse);
 };

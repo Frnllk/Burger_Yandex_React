@@ -6,7 +6,7 @@ import { Input, PasswordInput, Button } from '@ya.praktikum/react-developer-burg
 import styles from './ResetPassword.module.css';
 import clsx from 'clsx';
 
-import { resetPassword } from '../../../utils/auth';
+import { resetPassword } from '../../utils/auth';
 
 function ResetPassword() {
     

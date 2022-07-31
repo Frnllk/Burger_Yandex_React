@@ -7,7 +7,8 @@ import { EmailInput,Button} from '@ya.praktikum/react-developer-burger-ui-compon
 import styles from './ForgotPassword.module.css';
 import clsx from 'clsx';
 
-import { forgotPassword } from '../../../utils/auth';
+import { forgotPassword } from '../../utils/auth';
+
 
 
 function ForgotPassword() {

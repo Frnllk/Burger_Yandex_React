@@ -7,7 +7,7 @@ import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-de
 import styles from './Register.module.css';
 import clsx from 'clsx';
 
-import { register } from '../../../services/actions/authActions';
+import { register } from '../../services/actions/authActions';
 
 
 function Register(props) {

@@ -13,13 +13,13 @@ import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
 import { DELETE_DETAILS } from '../../services/actions';
 import { getData } from '../../services/actions/mainAction';
 
-import Login from '../Pages/Login/Login';
-import Register from '../Pages/Register/Register';
-import ForgotPassword from '../Pages/ForgotPassword/ForgotPassword';
-import ResetPassword from '../Pages/ResetPassword/ResetPassword';
-import Profile from '../Pages/Profile/Profile';
+import Login from '../../pages/Login/Login';
+import Register from '../../pages/Register/Register';
+import ForgotPassword from '../../pages/ForgotPassword/ForgotPassword';
+import ResetPassword from '../../pages/ResetPassword/ResetPassword';
+import Profile from '../../pages/Profile/Profile';
 
-import IngredientInfo from '../Pages/IngredientInfo/IngredientInfo';
+import IngredientInfo from '../../pages/IngredientInfo/IngredientInfo';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 
 function App() {
@@ -34,7 +34,7 @@ function App() {
 
   let switchBack;
   if (history.action === 'PUSH' || history.action === 'REPLACE') {
-    switchBack = location.state && location.state.switchBack;
+    switchBack = location.state && location.state.background;
   } else {
     switchBack = undefined;
   }

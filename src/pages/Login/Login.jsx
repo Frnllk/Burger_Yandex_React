@@ -4,7 +4,7 @@ import { Link, Redirect, useLocation } from 'react-router-dom';
 
 import { PasswordInput, EmailInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import { login } from '../../../services/actions/authActions';
+import { login } from '../../services/actions/authActions';
 import styles from './Login.module.css';
 import clsx from 'clsx';
 

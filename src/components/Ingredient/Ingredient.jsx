@@ -1,8 +1,10 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import { useDrag } from 'react-dnd';
+import { useHistory, useLocation } from 'react-router-dom';
+
 import clsx from 'clsx';
 
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -16,16 +18,23 @@ import { LOAD_DETAILS } from '../../services/actions/index';
 
 function Ingredient(props) {
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+  const history = useHistory();
+  let location = useLocation();
+
 
   const getIngredientModal = () => {
-    dispatch({
-      type: LOAD_DETAILS,
-      item: props.item,
+    // dispatch({
+    //   type: LOAD_DETAILS,
+    //   item: props.item,
+    // });
+    // const modalContent = <IngredientDetails />;
+    // const modalHeader = 'Детали ингредиента';
+    // props.setModalOpen(modalContent, modalHeader);
+    history.push({
+      pathname: `/ingredients/${props.item._id}`,
+      state: { background: location },
     });
-    const modalContent = <IngredientDetails />;
-    const modalHeader = 'Детали ингредиента';
-    props.setModalOpen(modalContent, modalHeader);
   }
 
   const [, dragRef] = useDrag({

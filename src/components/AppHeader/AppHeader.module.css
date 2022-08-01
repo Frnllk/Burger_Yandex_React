@@ -18,8 +18,25 @@
     align-items: center;
 }
 
+.headerBurger{
+    display: flex;
+    flex-grow: 1;
+    flex-shrink: 1;
+    width: 33%;
+}
+
 .flex{
     display: flex;
+    flex-grow: 1;
+    flex-shrink: 1;
+    width: 33%;
+}
+
+.flexEnd{
+    justify-content: flex-end;
+    flex-grow: 1;
+    flex-shrink: 1;
+    width: 33%;
 }
 
 .menuItem{

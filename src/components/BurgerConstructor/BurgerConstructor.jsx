@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useDrop } from 'react-dnd';
+import { useHistory } from 'react-router-dom';
 
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
@@ -20,9 +21,11 @@ import { postOrder } from '../../services/actions/mainAction';
 
 function BurgerConstructor(props) {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const data = useSelector((store) => store.mainReducer.constructor);
   const bun = data.find((item) => item.type === 'bun');
+  const auth = useSelector((store) => store.authReducer.isAuthorized);
 
   React.useEffect(() => {
     setTotal();
@@ -62,10 +65,14 @@ function BurgerConstructor(props) {
   }
 
   const getOrderModal = () => {
-    dispatch(postOrder(data));
-    const modalContent = <OrderDetails />;
-    const modalHeader = '';
-    props.setModalOpen(modalContent, modalHeader);
+    if (auth) {
+      dispatch(postOrder(data));
+      const modalContent = <OrderDetails />;
+      const modalHeader = '';
+      props.setModalOpen(modalContent, modalHeader);
+    } else {
+      history.replace({ pathname: '/login' });
+    }
   }
 
   const dragElement = (dragIndex, hoverIndex) => {
@@ -75,7 +82,17 @@ function BurgerConstructor(props) {
       hoverIndex: hoverIndex,
     });
   }
-
+  
+function onClick() {
+    if (auth) {
+      dispatch(postOrder(data));
+      const modalChild = <OrderDetails />;
+      const modalHeader = '';
+      props.onModalOpen(modalChild, modalHeader);
+    } else {
+      history.replace({ pathname: '/login' });
+    }
+  }
   return (
     <div ref={dropTarget} className="mt-25 ml-4">
       {bun ? (

@@ -1,20 +1,27 @@
-import React, { useRef } from 'react';
+import React, { FunctionComponent, useRef } from 'react';
 import { useDrop, useDrag } from 'react-dnd';
 import { useDispatch } from 'react-redux';
 
 import styles from './IngredientConstructor.module.css';
 
 import PropTypes from 'prop-types';
-import { ingredientsType } from '../../utils/propTypesConst';
+import { TItem } from '../../utils/types';
 
 import { DELETE_INGREDIENT } from '../../services/actions';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
+interface IIngredientConstructor  {
+  item: TItem;
+  index: number;
+  dragElement: (dragIndex: number, hoverIndex: number) => void;
+}
 
-function IngredientConstructor(props) {
+
+
+const  IngredientConstructor: FunctionComponent<IIngredientConstructor> = (props) => {
   const { item, index, dragElement } = props;
   const dispatch = useDispatch();
-  const ref = useRef(null);
+  const ref = useRef<HTMLInputElement>(null);
   
 
   const [ , dragRef] = useDrag({
@@ -26,12 +33,14 @@ function IngredientConstructor(props) {
 
   const [, dropRef] = useDrop({
     accept: 'constructorElement',
-    hover: (item, monitor) => {
-      if (item.index === index) 
+    hover: (item: TItem, monitor) => {
+      if (!item.index || item.index === index) 
         return;
-      
+      if (!ref.current) return;
       let hoverMiddle = (ref.current.getBoundingClientRect().bottom - ref.current.getBoundingClientRect().top) / 2;
-      let hoverUser = monitor.getClientOffset().y - ref.current.getBoundingClientRect().top;
+      const clientOffset = monitor.getClientOffset();
+      if (!clientOffset) return;
+      let hoverUser = clientOffset.y - ref.current.getBoundingClientRect().top;
 
       if (item.index < index && hoverUser < hoverMiddle) 
         return;
@@ -43,7 +52,7 @@ function IngredientConstructor(props) {
   });
   dragRef(dropRef(ref));
 
-  function deleteIngredient(item) {
+  function deleteIngredient(item: TItem) {
     dispatch({
       type: DELETE_INGREDIENT,
       item: item,
@@ -65,9 +74,3 @@ function IngredientConstructor(props) {
 }
 
 export default IngredientConstructor;
-
-IngredientConstructor.propTypes = {
-  item: ingredientsType.isRequired,
-  index: PropTypes.number,
-  dragElement: PropTypes.func.isRequired,
-};

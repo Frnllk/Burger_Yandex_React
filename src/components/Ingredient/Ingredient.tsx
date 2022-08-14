@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, {FunctionComponent, ReactElement, ReactNode}  from 'react';
 import PropTypes from 'prop-types';
 // import { useDispatch } from 'react-redux';
 import { useDrag } from 'react-dnd';
@@ -11,12 +11,17 @@ import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-c
 import styles from './Ingredient.module.css';
 
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
-import { ingredientsType } from '../../utils/propTypesConst';
+import { TItem } from '../../utils/types';
 
 import { LOAD_DETAILS } from '../../services/actions/index';
 
+interface IIngredientProps {
+  item: TItem;
+  setModalOpen: (modalChild: ReactNode, modalHeader: string) => void;
+}
 
-function Ingredient(props) {
+
+const Ingredient: FunctionComponent<IIngredientProps> = (props) => {
 
   // const dispatch = useDispatch();
   const history = useHistory();
@@ -60,8 +65,3 @@ function Ingredient(props) {
 
 
 export default Ingredient;
-
-Ingredient.propTypes = {
-  item: ingredientsType.isRequired,
-  setModalOpen: PropTypes.func.isRequired,
-};

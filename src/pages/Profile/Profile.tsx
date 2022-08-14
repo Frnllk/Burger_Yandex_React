@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, MouseEvent, FormEvent, SyntheticEvent }  from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
@@ -9,34 +9,40 @@ import clsx from 'clsx';
 
 import { updateUser, logout } from '../../services/actions/authActions';
 
+interface IUserForm {
+    name: string,
+    password: string,
+    email: string
+  }
+
 function Profile() {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<any>();
 
-    const user = useSelector((store) => store.authReducer.user);
+    const user = useSelector((store:any) => store.authReducer.user);
 
-    const [form, setValue] = useState({});
+    const [form, setValue] = useState<IUserForm>({name:'', password:'',email:''});
     const [changed, setChanged] = useState(false);
 
-    const onChange = (e) => {
+    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setValue({ ...form, [e.target.name]: e.target.value });
         setChanged(true);
         console.log(form);
     };
 
-    const cancelClick = (e) => {
+    const cancelClick = (e: SyntheticEvent<Element, Event>) => {
         console.log(e, 'canceled');
         setValue(user);
         setChanged(false);
     };
 
-    function onClick(e) {
+    function onClick(e: FormEvent) {
         console.log(e, form, changed);
         e.preventDefault();
         if (changed) dispatch(updateUser(form));
     }
 
-    function onExit(e) {
-        dispatch(logout(form));
+    function onExit(e: MouseEvent) {
+        dispatch(logout());
     }
     
     useEffect(() => {
@@ -97,9 +103,11 @@ function Profile() {
                     />
                 </div>
                 <div className={changed ? styles.activeButtons : styles.inactiveButtons}>
+                    {/* @ts-ignore */}
                     <Button type="primary" size="medium">
                         Сохранить
                     </Button>
+                    {/* @ts-ignore */}
                     <Button onClick={cancelClick} type="secondary">
                         Отмена
                     </Button>

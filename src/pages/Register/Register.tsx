@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { FunctionComponent , useState, useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useHistory, Redirect } from 'react-router-dom';
 
@@ -9,20 +9,25 @@ import clsx from 'clsx';
 
 import { register } from '../../services/actions/authActions';
 
+interface IRegisterProps {
+  state?: {
+    from: Location;
+  }
+}
 
-function Register(props) {
+const  Register: FunctionComponent<IRegisterProps> = (props) => {
   const history = useHistory();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<any>();
 
   const [form, setValue] = useState({ name: '', email: '', password: '' });
-  const auth = useSelector((store) => store.authReducer.isAuthorized);
+  const auth = useSelector((store: any) => store.authReducer.isAuthorized);
 
-  const onChange = (e) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
 
   const registerListener = useCallback(
-    (e) => {
+    (e:any) => {
       e.preventDefault();
       dispatch(register(form));
     },
@@ -69,6 +74,7 @@ function Register(props) {
             onChange={onChange}
           />
         </div>
+          {/* @ts-ignore */}
           <Button type="primary">Зарегистрироваться</Button>
       </form>
       <div className={styles.flex}>

@@ -23,12 +23,12 @@ function ResetPassword() {
   if (!permission) {
     history.replace({ pathname: '/' });
   }
-  const onChange = (e) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
 
   const passwordCreate = useCallback(
-    (e) => {
+    (e: any) => {
       e.preventDefault();
       resetPassword(form.password, form.code)
         .then((data) => {
@@ -54,7 +54,6 @@ function ResetPassword() {
         </h1>
         <div className={'mb-6'}>
           <PasswordInput
-            placeholder="Введите новый пароль"
             value={form.password}
             name="password"
             onChange={onChange}
@@ -68,6 +67,7 @@ function ResetPassword() {
             onChange={onChange}
           />
         </div>
+        {/* @ts-ignore */}
         <Button type="primary">Сохранить</Button>
       </form>
       <div className={styles.flex}>

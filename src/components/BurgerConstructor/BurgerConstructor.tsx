@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{FunctionComponent,ReactNode} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useDrop } from 'react-dnd';
 import { useHistory } from 'react-router-dom';
@@ -11,7 +11,7 @@ import { CurrencyIcon, ConstructorElement, Button } from '@ya.praktikum/react-de
 
 import OrderDetails from '../OrderDetails/OrderDetails';
 import IngredientConstructor from '../IngredientConstructor/IngredientConstructor';
-import { ingredientsType } from '../../utils/propTypesConst';
+import { TItem } from '../../utils/types';
 import {
   ADD_INGREDIENT,
   CHANGE_INGREDIENT,
@@ -19,13 +19,17 @@ import {
 } from '../../services/actions';
 import { postOrder } from '../../services/actions/mainAction';
 
-function BurgerConstructor(props) {
-  const dispatch = useDispatch();
+interface IBurgerConstructorProps {
+  setModalOpen: (modalChild: ReactNode, modalHeader: string) => void;
+}
+
+const  BurgerConstructor: FunctionComponent<IBurgerConstructorProps> = (props) => {
+  const dispatch = useDispatch<any>();
   const history = useHistory();
 
-  const data = useSelector((store) => store.mainReducer.constructor);
-  const bun = data.find((item) => item.type === 'bun');
-  const auth = useSelector((store) => store.authReducer.isAuthorized);
+  const data = useSelector((store: any) => store.mainReducer.constructor);
+  const bun = data.find((item: TItem) => item.type === 'bun');
+  const auth = useSelector((store: any) => store.authReducer.isAuthorized);
 
   React.useEffect(() => {
     setTotal();
@@ -34,10 +38,10 @@ function BurgerConstructor(props) {
 
   const [, dropTarget] = useDrop({
     accept: 'ingredient',
-    drop(item) {
+    drop(item: TItem) {
       const uniqueId = Date.now().toString(36) + Math.random().toString(36).substr(2);
       let qnt = 1;
-      let selectedBun = data.find((el) => el.type === 'bun');
+      let selectedBun = data.find((el: TItem) => el.type === 'bun');
       if (item.type === 'bun'){
         qnt++;
         if (selectedBun) {
@@ -59,8 +63,8 @@ function BurgerConstructor(props) {
 
   const [totaPrice, setTotal] = React.useReducer(reducer, { total: 0 });
   
-  function reducer(state, action) {
-    const total = data.reduce( (sum, item) => sum + (item.type === 'bun' ? item.price * 2 : item.price),0);
+  function reducer() {
+    const total = data.reduce( (sum: number, item: TItem) => sum + (item.type === 'bun' ? item.price * 2 : item.price),0);
     return { total: total };
   }
 
@@ -75,7 +79,7 @@ function BurgerConstructor(props) {
     }
   }
 
-  const dragElement = (dragIndex, hoverIndex) => {
+  const dragElement = (dragIndex: number, hoverIndex: number) => {
     dispatch({
       type: CHANGE_INGREDIENT,
       dragIndex: dragIndex,
@@ -83,16 +87,19 @@ function BurgerConstructor(props) {
     });
   }
   
-function onClick() {
-    if (auth) {
-      dispatch(postOrder(data));
-      const modalChild = <OrderDetails />;
-      const modalHeader = '';
-      props.onModalOpen(modalChild, modalHeader);
-    } else {
-      history.replace({ pathname: '/login' });
-    }
+  function onClick() {
+      if (auth) {
+        dispatch(postOrder(data));
+        const modalChild = <OrderDetails />;
+        const modalHeader = '';
+        props.setModalOpen(modalChild, modalHeader);
+      } else {
+        history.replace({ pathname: '/login' });
+      }
   }
+
+  const inactiveButtonStyle = bun ? {} : { opacity: 0.5, cursor: 'default' };
+
   return (
     <div ref={dropTarget} className="mt-25 ml-4">
       {bun ? (
@@ -111,7 +118,7 @@ function onClick() {
         </div>
       )}
       <section className={clsx(styles.contentList, ' mt-6 mb-6 pr-4')}>
-        {data.map((elem, index) => (
+        {data.map((elem: TItem, index: number) => (
         elem.type !== 'bun' && (
              <IngredientConstructor
                 item={elem}
@@ -146,7 +153,8 @@ function onClick() {
           <CurrencyIcon type="primary" />
         </div>
         {bun && (
-        <Button type="primary" size="medium"  style={bun ? {} : { opacity: 0.5, cursor: 'default' }} onClick = { getOrderModal} >
+        /* @ts-ignore */
+        <Button type="primary" size="medium"  style={inactiveButtonStyle} onClick = { getOrderModal} >
           Оформить заказ
         </Button>
         )}
@@ -157,7 +165,3 @@ function onClick() {
 }
 
 export default BurgerConstructor;
-
-BurgerConstructor.propTypes = {
-  setModalOpen: PropTypes.func.isRequired,
-};

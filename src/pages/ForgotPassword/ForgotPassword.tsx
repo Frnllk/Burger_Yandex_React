@@ -14,13 +14,13 @@ import { forgotPassword } from '../../utils/auth';
 function ForgotPassword() {
   const [form, setValue] = useState({ email: '' });
   const history = useHistory();
-  const auth = useSelector((store) => store.authReducer.isAuthorized);
-  const onChange = (e) => {
+  const auth = useSelector((store: any) => store.authReducer.isAuthorized);
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
 
   const passwordReset = useCallback(
-    (e) => {
+    (e:any) => {
       e.preventDefault();
       forgotPassword(form.email)
         .then((data) => {
@@ -52,11 +52,11 @@ function ForgotPassword() {
           <EmailInput
             value={form.email}
             name="email"
-            placeholder="Укажите e-mail"
             onChange={onChange}
           />
         </div>
-        <Button primary={true}>Восстановить</Button>
+        {/* @ts-ignore */}
+        <Button type='primary' >Восстановить</Button>
       </form>
       <div className={styles.flex}>
         <p className={'text text_type_main-default text_color_inactive'}>

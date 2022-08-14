@@ -28,7 +28,7 @@ function ResetPassword() {
   };
 
   const passwordCreate = useCallback(
-    (e: any) => {
+    (e:React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       resetPassword(form.password, form.code)
         .then((data) => {

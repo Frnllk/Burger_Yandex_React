@@ -1,15 +1,11 @@
 import { FunctionComponent,ReactNode,useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Redirect,RouteProps  } from 'react-router-dom';
 
 import { getUser } from '../../services/actions/authActions';
 
-interface IProtectedRouteProps {
-  children: ReactNode;
-  path: string;
-}
 
-const ProtectedRoute: FunctionComponent<IProtectedRouteProps> = ({ children, ...rest }) => {
+const ProtectedRoute: FunctionComponent<RouteProps> = ({ children, ...rest }) => {
     
   const dispatch = useDispatch<any>();
 

@@ -20,7 +20,7 @@ function ForgotPassword() {
   };
 
   const passwordReset = useCallback(
-    (e:any) => {
+    (e:React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       forgotPassword(form.email)
         .then((data) => {

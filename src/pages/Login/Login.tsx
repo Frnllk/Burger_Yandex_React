@@ -19,14 +19,14 @@ function Login() {
   const dispatch = useDispatch<any>();
   const auth = useSelector((store: any) => store.authReducer.isAuthorized);
 
-  let location = useLocation<TLocationState>();
+  const location = useLocation<TLocationState>();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
 
   const loginListener = useCallback(
-    (e:any) => {
+    (e:React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       dispatch(login(form));
     },

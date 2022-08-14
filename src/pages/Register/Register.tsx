@@ -27,7 +27,7 @@ const  Register: FunctionComponent<IRegisterProps> = (props) => {
   };
 
   const registerListener = useCallback(
-    (e:any) => {
+    (e:React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       dispatch(register(form));
     },

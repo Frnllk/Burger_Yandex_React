@@ -1,6 +1,6 @@
 import { LOAD_INGREDIENTS, ORDER_NUMBER, ORDER_CLEAR } from './index';
 
-import  baseUrl  from '../../utils/urlConst.js';
+import  baseUrl  from '../../utils/urlConst.tsx';
 const contentURL = new URL('ingredients', baseUrl );
 const orderURL = new URL('orders', baseUrl ); 
 

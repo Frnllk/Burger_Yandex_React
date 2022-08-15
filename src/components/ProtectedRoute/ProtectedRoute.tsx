@@ -4,8 +4,11 @@ import { Route, Redirect,RouteProps  } from 'react-router-dom';
 
 import { getUser } from '../../services/actions/authActions';
 
+type TRouteProps = {
+  children: React.ReactNode
+} & RouteProps
 
-const ProtectedRoute: FunctionComponent<RouteProps> = ({ children, ...rest }) => {
+const ProtectedRoute: FunctionComponent<TRouteProps> = ({ children, ...rest })  => {
     
   const dispatch = useDispatch<any>();
 

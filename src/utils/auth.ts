@@ -1,9 +1,10 @@
 import { checkReponse } from '../services/actions/authActions';
-import  baseUrl  from './urlConst';
+import  {baseUrl}  from './urlConst';
 const authURL = new URL('auth/', baseUrl );
 
 const forgotPasswordURL: any = new URL('password-reset/', baseUrl );
 const resetPasswordURL: any = new URL('reset', forgotPasswordURL );
+const getOrderURL: any = new URL('orders/', baseUrl );
 
 export const forgotPassword = (email: string) => {
   return fetch(forgotPasswordURL, {
@@ -30,4 +31,19 @@ export const resetPassword = (password: string, code: string) => {
       token: code,
     }),
   }).then(checkReponse);
+};
+
+export const getOrder = (number: number) => {
+  return fetch(`${getOrderURL}${number}`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+  }).then((response) => {
+    if (!response.ok) {
+      return Promise.reject(`Ошибка: ${response.status}`);
+    }
+    return response.json();
+  });
 };

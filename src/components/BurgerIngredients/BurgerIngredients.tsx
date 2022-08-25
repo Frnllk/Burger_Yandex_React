@@ -1,20 +1,19 @@
 import React, {FunctionComponent,ReactNode} from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
 import clsx from 'clsx';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import styles from './BurgerIngredients.module.css';
 import Ingredient from '../Ingredient/Ingredient';
 import { TItem } from '../../utils/types';
-
+import { useSelector } from '../../utils/hooks';
 interface IBurgerIngredientsProps {
   setModalOpen: (modalChild: ReactNode, modalHeader: string) => void;
 }
 
 
 const BurgerIngredients: FunctionComponent<IBurgerIngredientsProps> = (props) => {
-  const data = useSelector((store: any) => store.mainReducer.ingredients);
+  const data = useSelector((store) => store.mainReducer.ingredients);
   const [section, setSection] = React.useState('bread');
 
   const ingredientsWindow = document.querySelector('#ingredients');

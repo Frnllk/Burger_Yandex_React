@@ -1,5 +1,4 @@
 import React, { FunctionComponent , useState, useCallback, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { Link, useHistory, Redirect } from 'react-router-dom';
 
 import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -7,6 +6,7 @@ import { Input, EmailInput, PasswordInput, Button } from '@ya.praktikum/react-de
 import styles from './Register.module.css';
 import clsx from 'clsx';
 
+import { useSelector, useDispatch } from '../../utils/hooks';
 import { register } from '../../services/actions/authActions';
 
 interface IRegisterProps {
@@ -17,10 +17,10 @@ interface IRegisterProps {
 
 const  Register: FunctionComponent<IRegisterProps> = (props) => {
   const history = useHistory();
-  const dispatch = useDispatch<any>();
+  const dispatch = useDispatch();
 
   const [form, setValue] = useState({ name: '', email: '', password: '' });
-  const auth = useSelector((store: any) => store.authReducer.isAuthorized);
+  const auth = useSelector((store) => store.authReducer.isAuthorized);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue({ ...form, [e.target.name]: e.target.value });

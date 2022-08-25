@@ -1,6 +1,5 @@
 import React, { FunctionComponent, useRef } from 'react';
 import { useDrop, useDrag } from 'react-dnd';
-import { useDispatch } from 'react-redux';
 
 import styles from './IngredientConstructor.module.css';
 
@@ -9,6 +8,7 @@ import { TItem } from '../../utils/types';
 
 import { DELETE_INGREDIENT } from '../../services/actions';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useDispatch } from '../../utils/hooks';
 
 interface IIngredientConstructor  {
   item: TItem;

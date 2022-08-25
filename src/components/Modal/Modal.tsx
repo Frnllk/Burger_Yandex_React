@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent, ReactElement, ReactNode, ReactPortal } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
@@ -10,9 +10,15 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 const portalRoot = document.getElementById('portal-modals');
 
-function Modal(props) {
+interface IModalProps {
+    children: ReactNode | '';
+    setModaClose: () => void;
+    header?: string;
+  }
 
-    const handlerEsc = (e) => {
+  const Modal: FunctionComponent<IModalProps> = (props) => {
+
+    const handlerEsc = (e: KeyboardEvent) => {
         if (e.key === 'Escape') {
             e.preventDefault();
             closeModal();
@@ -29,6 +35,10 @@ function Modal(props) {
             document.removeEventListener('keydown', handlerEsc);
         };
     }, []);
+
+    if (!portalRoot) {
+        return null;
+      }
 
     return ReactDOM.createPortal(
         <div>
@@ -50,9 +60,3 @@ function Modal(props) {
 }
 
 export default Modal;
-
-Modal.propTypes = {
-    children: PropTypes.element.isRequired,
-    setModaClose: PropTypes.func.isRequired,
-    header: PropTypes.string,
-};

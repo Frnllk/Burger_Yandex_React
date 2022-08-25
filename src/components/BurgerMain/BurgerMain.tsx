@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { FunctionComponent,ReactNode } from 'react';
 import PropTypes from 'prop-types';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
@@ -9,10 +9,13 @@ import styles from './BurgerMain.module.css';
 
 import BurgerIngredients from '../BurgerIngredients/BurgerIngredients';
 import BurgerConstructor from '../BurgerConstructor/BurgerConstructor';
-//import { ingredientsType } from '../../utils/propTypesConst';
+import { TItem } from '../../utils/types';
 
+interface IBurgerMainProps  {
+  setModalOpen: (modalChild: ReactNode, modalHeader: string) => void;
+}
 
-function BurgerMain(props) {
+const BurgerMain: FunctionComponent<IBurgerMainProps> = (props) => {
   return (
     <main className={styles.main}>
        <DndProvider backend={HTML5Backend}>
@@ -31,7 +34,3 @@ function BurgerMain(props) {
 }
 
 export default BurgerMain;
-
-BurgerMain.propTypes = {
-  setModalOpen: PropTypes.func.isRequired,
-};

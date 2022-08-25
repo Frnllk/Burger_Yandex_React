@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { useEffect, ReactElement, ReactNode } from 'react';
 import { useDispatch } from 'react-redux';
 import { Switch, Route, useHistory, useLocation } from 'react-router-dom';
 
-import styles from './App.module.css';
+import styles from "./App.module.css";
 
 import AppHeader  from '../AppHeader/AppHeader';
 import BurgerMain from '../BurgerMain/BurgerMain';
 import Modal from '../Modal/Modal';
 import NotFound404 from '../NotFound404/NotFound404';
-import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute';
+import  ProtectedRoute  from '../ProtectedRoute/ProtectedRoute';
 
 import { DELETE_DETAILS } from '../../services/actions';
 import { getData } from '../../services/actions/mainAction';
@@ -21,16 +21,21 @@ import Profile from '../../pages/Profile/Profile';
 
 import IngredientInfo from '../../pages/IngredientInfo/IngredientInfo';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
+import { Location } from 'history';
+
+type TLocationState = {
+  background: Location;
+}
 
 function App() {
   
   const [modalStatus, setStatusModa] = React.useState(false);
-  const [modalHeader, setModalHeader] = React.useState(null);
-  const [modalContent, setModalContent] = React.useState(null);
+  const [modalHeader, setModalHeader] = React.useState('');
+  const [modalContent, setModalContent] = React.useState<ReactNode | ''>('');
 
   const history = useHistory();
-  let location = useLocation();
-  const dispatch = useDispatch();
+  let location = useLocation<TLocationState>();
+  const dispatch = useDispatch<any>();
 
   let switchBack;
   if (history.action === 'PUSH' || history.action === 'REPLACE') {
@@ -43,7 +48,7 @@ function App() {
     history.goBack();
   }
 
-  const setModalOpen = (newModalContent, modalLabel = 'Modal') =>  {
+  const setModalOpen = (newModalContent: ReactNode, modalLabel = 'Modal') =>  {
     setModalHeader(modalLabel);
     setModalContent(newModalContent);
     setStatusModa(true);
@@ -56,7 +61,7 @@ function App() {
     });
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(getData());
   }, [dispatch]);
 
@@ -64,6 +69,7 @@ function App() {
       <div>
         <Switch location={switchBack || location}>
           <Route path="/" exact>
+            {/* @ts-ignore */}
             <AppHeader className={styles.header} />
             <BurgerMain setModalOpen={setModalOpen} />
             {modalStatus && (

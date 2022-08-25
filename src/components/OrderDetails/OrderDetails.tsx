@@ -7,8 +7,8 @@ import clsx from 'clsx';
 
 import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-function OrderDetails(props) {
-  const order = useSelector((store) => store.mainReducer.order);
+function OrderDetails() {
+  const order = useSelector((store: any) => store.mainReducer.order);
   return (
     <div className={styles.main}>
       <p className={clsx(styles.order,' text text_type_digits-large')}>

@@ -6,10 +6,12 @@ import clsx from 'clsx';
 
 import styles from './IngredientDetails.module.css';
 
-function IngredientDetails(props) {
-  let { id } = useParams();
-  const items = useSelector((store) => store.mainReducer.ingredients);
-  const item = items.find((el) => el._id === id);
+import { TItem } from '../../utils/types';
+
+function IngredientDetails() {
+  let { id } = useParams<{id?: string}>();
+  const items = useSelector((store: any) => store.mainReducer.ingredients);
+  const item = items.find((el: TItem) => el._id === id);
 
   
   return (

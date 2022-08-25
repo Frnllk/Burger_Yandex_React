@@ -1,6 +1,6 @@
 import React from 'react';
 
-function NotFound404(props) {
+function NotFound404() {
   return (
     <div style={{textAlign: "center"}}>
       <p className="text text_type_digits-large mt-20">ERROR 404 !</p>

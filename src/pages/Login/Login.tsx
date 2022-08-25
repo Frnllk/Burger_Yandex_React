@@ -8,20 +8,25 @@ import { login } from '../../services/actions/authActions';
 import styles from './Login.module.css';
 import clsx from 'clsx';
 
-function Login(props) {
+type TLocationState = {
+  background: Location;
+  from: Location;
+}
+
+function Login() {
   const [form, setValue] = useState({ email: '', password: '' });
 
-  const dispatch = useDispatch();
-  const auth = useSelector((store) => store.authReducer.isAuthorized);
+  const dispatch = useDispatch<any>();
+  const auth = useSelector((store: any) => store.authReducer.isAuthorized);
 
-  let location = useLocation();
+  const location = useLocation<TLocationState>();
 
-  const onChange = (e) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue({ ...form, [e.target.name]: e.target.value });
   };
 
   const loginListener = useCallback(
-    (e) => {
+    (e:React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       dispatch(login(form));
     },
@@ -52,7 +57,8 @@ function Login(props) {
             onChange={onChange}
           />
         </div>
-        <Button type="primary">Войти</Button>
+        {/* @ts-ignore */}
+        <Button type="primary" >Войти</Button>
       </form>
       <div className={styles.flex}>
         <p className={'text text_type_main-default text_color_inactive'}>

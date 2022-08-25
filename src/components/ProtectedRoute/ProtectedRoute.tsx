@@ -1,15 +1,19 @@
-import { useEffect, useState } from 'react';
+import { FunctionComponent,ReactNode,useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Redirect,RouteProps  } from 'react-router-dom';
 
 import { getUser } from '../../services/actions/authActions';
 
-export function ProtectedRoute({ children, ...rest }) {
+type TRouteProps = {
+  children: React.ReactNode
+} & RouteProps
+
+const ProtectedRoute: FunctionComponent<TRouteProps> = ({ children, ...rest })  => {
     
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<any>();
 
   const [isUserLoaded, setUserLoaded] = useState(false);
-  const auth = useSelector((store) => store.authReducer.isAuthorized);
+  const auth = useSelector((store: any) => store.authReducer.isAuthorized);
   
 
   const init = async () => {
@@ -43,3 +47,5 @@ export function ProtectedRoute({ children, ...rest }) {
     />
   );
 }
+
+export default ProtectedRoute;

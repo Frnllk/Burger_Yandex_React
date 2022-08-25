@@ -4,11 +4,13 @@ import { useParams } from 'react-router-dom';
 
 import styles from './IngredientInfo.module.css';
 import clsx from 'clsx';
+import { TItem } from '../../utils/types';
+
 
 function IngredientInfo() {
-  const { id } = useParams();
-  const items = useSelector((store) => store.mainReducer.ingredients);
-  const item = items.find((el) => el._id === id);
+  const { id } = useParams<{id?: string}>();
+  const items = useSelector((store: any) => store.mainReducer.ingredients);
+  const item = items.find((el: TItem) => el._id === id);
 
   if (!item) {
     return <div></div>;

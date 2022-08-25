@@ -1,6 +1,6 @@
 import { LOGIN_USER, REGISTER_USER, LOGOUT_USER, CHEK_TOKEN } from './index';
 
- import  baseUrl  from '../../utils/urlConst.js';
+ import  baseUrl  from '../../utils/urlConst.tsx';
  const authURL = new URL('auth/', baseUrl );
 
 const loginURL = new URL('login ', authURL );

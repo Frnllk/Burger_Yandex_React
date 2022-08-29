@@ -28,6 +28,7 @@ export interface IChekTokenAction {
   readonly data: TUserData;
 }
 
+
 export type TAuthActions =
   | ILoginUserAction
   | IRegisterUserAction

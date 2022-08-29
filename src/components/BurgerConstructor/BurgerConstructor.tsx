@@ -29,6 +29,7 @@ const  BurgerConstructor: FunctionComponent<IBurgerConstructorProps> = (props) =
 
   const data = useSelector((store) => store.mainReducer.constructor);
   const bun = data.find((item) => item.type === 'bun');
+
   const auth = useSelector((store) => store.authReducer.isAuthorized);
 
   React.useEffect(() => {

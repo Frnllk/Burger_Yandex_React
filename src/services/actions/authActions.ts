@@ -1,7 +1,9 @@
 import { LOGIN_USER, REGISTER_USER, LOGOUT_USER, CHEK_TOKEN } from './index';
-
- import  baseUrl  from '../../utils/urlConst.tsx';
- const authURL = new URL('auth/', baseUrl );
+import { AppDispatch, TUserData, RootState } from '../../utils/types';
+import { baseUrl , checkReponse}  from '../../utils/urlConst';
+import { ThunkAction } from 'redux-thunk';
+import { AnyAction } from 'redux'
+const authURL = new URL('auth/', baseUrl );
 
 const loginURL = new URL('login ', authURL );
 const registerURL = new URL('register', authURL );
@@ -10,14 +12,32 @@ const userURL = new URL('user', authURL );
 const token = new URL('token', authURL );
 
 
-export const checkReponse = (response) => {
-  return response.ok ? response.json() : response.json().then((err) => Promise.reject(err));
-};
+export interface ILoginUserAction {
+  readonly type: typeof LOGIN_USER;
+  readonly data: TUserData;
+}
+export interface IRegisterUserAction {
+  readonly type: typeof REGISTER_USER;
+  readonly data: TUserData;
+}
+export interface ILogoutUserAction {
+  readonly type: typeof LOGOUT_USER;
+}
+export interface IChekTokenAction {
+  readonly type: typeof CHEK_TOKEN;
+  readonly data: TUserData;
+}
 
+export type TAuthActions =
+  | ILoginUserAction
+  | IRegisterUserAction
+  | ILogoutUserAction
+  | IChekTokenAction;
   
-export function login(data) {
-  return function (dispatch) {
-    fetch(loginURL, {
+
+export function login(data: TUserData): ThunkAction<void, RootState, unknown, AnyAction> {
+  return function (dispatch: AppDispatch) {
+    fetch(<any>loginURL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -47,9 +67,9 @@ export function login(data) {
 }
 
 
-export function register(data) {
-  return function (dispatch) {
-    fetch(registerURL, {
+export function register(data: TUserData): ThunkAction<void, RootState, unknown, AnyAction> {
+  return function (dispatch: AppDispatch) {
+    fetch(<any>registerURL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -80,9 +100,9 @@ export function register(data) {
 }
 
 
-export function logout(data) {
-  return function (dispatch) {
-    fetch(logoutdURL, {
+export function logout(): ThunkAction<void, RootState, unknown, AnyAction> {
+  return function (dispatch: AppDispatch) {
+    fetch(<any>logoutdURL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -110,9 +130,9 @@ export function logout(data) {
 }
 
 
-export function getUser() {
-  return function (dispatch) {
-    fetchWithRefresh(`${authURL}/user`, {
+export function getUser(): ThunkAction<void, RootState, unknown, AnyAction> {
+  return function (dispatch: AppDispatch) {
+     return fetchWithRefresh(`${authURL}/user`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -136,9 +156,9 @@ export function getUser() {
 }
 
 
-export function updateUser(data) {
-  return function (dispatch) {
-    fetchWithRefresh(userURL, {
+export function updateUser(data: TUserData): ThunkAction<void, RootState, unknown, AnyAction> {
+  return function (dispatch: AppDispatch) {
+    fetchWithRefresh(<any>userURL, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
@@ -167,7 +187,7 @@ export function updateUser(data) {
 
 
 export const refreshToken = () => {
-  return fetch(token, {
+  return fetch(<any>token, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
@@ -178,11 +198,15 @@ export const refreshToken = () => {
   }).then(checkReponse);
 };
 
-export const fetchWithRefresh = async (url, options) => {
+type Overwrite<T, U> = Pick<T, Exclude<keyof T, keyof U>> & U;
+type fetchWithRefreshOptions = Overwrite<RequestInit, {headers: Record<string, string>  }>;
+
+
+export const fetchWithRefresh = async (url: string, options:fetchWithRefreshOptions) => {
   try {
     const res = await fetch(url, options);
     return await checkReponse(res);
-  } catch (err) {
+  } catch (err: any) {
     if (err.message === 'jwt expired') {
       const refreshData = await refreshToken(); 
       localStorage.setItem('refreshToken', refreshData.refreshToken);
@@ -196,7 +220,7 @@ export const fetchWithRefresh = async (url, options) => {
   }
 };
 
-export function setCookie(name, value, props) {
+export function setCookie(name: string, value: string, props: any = {}) {
   props = props || {};
   props = {
     path: '/',
@@ -224,7 +248,7 @@ export function setCookie(name, value, props) {
   document.cookie = updatedCookie;
 }
 
-export function getCookie(name) {
+export function getCookie(name: string) {
   const matches = document.cookie.match(
     new RegExp(
       '(?:^|; )' +
@@ -232,10 +256,10 @@ export function getCookie(name) {
         '=([^;]*)'
     )
   );
-  return matches ? decodeURIComponent(matches[1]) : undefined;
+  return matches ? decodeURIComponent(matches[1]) : '';
 }
 
-function deleteCookie(name) {
+function deleteCookie(name: string) {
   setCookie(name, '', {
     'max-age': -1,
   });

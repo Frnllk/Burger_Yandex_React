@@ -1,18 +1,19 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import clsx from 'clsx';
-
 import styles from './IngredientDetails.module.css';
 
+import { useSelector } from '../../utils/hooks';
 import { TItem } from '../../utils/types';
 
 function IngredientDetails() {
   let { id } = useParams<{id?: string}>();
-  const items = useSelector((store: any) => store.mainReducer.ingredients);
+  const items = useSelector((store) => store.mainReducer.ingredients);
   const item = items.find((el: TItem) => el._id === id);
-
+  if (!item) {
+    return <div></div>;
+  }
   
   return (
     <div className={styles.main}>
@@ -22,7 +23,7 @@ function IngredientDetails() {
           {item.name}
         </p>
         <p className={'text text_type_main-small mt-4'} >
-          {item.description}
+          {/* {item.description} */}
           {/* в макете есть описание, но в api его нет */}
         </p>
       </section>

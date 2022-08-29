@@ -12,7 +12,7 @@ const portalRoot = document.getElementById('portal-modals');
 
 interface IModalProps {
     children: ReactNode | '';
-    setModaClose: () => void;
+    onClose: () => void;
     header?: string;
   }
 
@@ -26,7 +26,7 @@ interface IModalProps {
     }
 
     const closeModal = () => {
-        props.setModaClose();
+        props.onClose();
     }
 
     React.useEffect(() => {
@@ -48,7 +48,7 @@ interface IModalProps {
                     <h1 className={' text text_type_main-large'}>
                         {props.header}
                     </h1>
-                    <section className={styles.closeButton} onClick={props.setModaClose}>
+                    <section className={styles.closeButton} onClick={props.onClose}>
                         <CloseIcon type="secondary" />
                     </section>
                 </div>

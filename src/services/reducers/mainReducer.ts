@@ -11,14 +11,24 @@ import {
   ORDER_CLEAR,
 } from '../actions';
 
-const initialState = {
+import { TMainActions } from '../actions/mainAction';
+import { TItem } from '../../utils/types';
+
+type TinitialState = {
+  ingredients: Array<TItem>;
+  constructor: Array<TItem>;
+  ingredient: TItem | {};
+  order: number;
+};
+
+const initialState:TinitialState = {
   ingredients: [],
   constructor: [],
   ingredient: {},
   order: 0,
 };
 
-export const mainReducer = (state = initialState, action) => {
+export const mainReducer = (state = initialState, action:TMainActions):TinitialState => {
   switch (action.type) {
 
     case LOAD_INGREDIENTS:

@@ -7,9 +7,9 @@ import './index.css';
 import App from './components/App/App';
 
 import { Provider } from 'react-redux';
-import { initialiseStore } from './services/store';
+import  configureStore  from './services/store';
  
-const store = initialiseStore();
+export const store = configureStore();
 
 ReactDOM.render(
   <React.StrictMode>

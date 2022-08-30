@@ -1,5 +1,4 @@
 import React, { useEffect, ReactElement, ReactNode } from 'react';
-import { useDispatch } from 'react-redux';
 import { Switch, Route, useHistory, useLocation } from 'react-router-dom';
 
 import styles from "./App.module.css";
@@ -22,6 +21,11 @@ import Profile from '../../pages/Profile/Profile';
 import IngredientInfo from '../../pages/IngredientInfo/IngredientInfo';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import { Location } from 'history';
+import { useDispatch } from '../../utils/hooks';
+
+import Feed from '../../pages/Feed/Feed';
+import OrderComposition from '../OrderComposition/OrderComposition';
+import OrdersHistory from '../../pages/OrdersHistory/OrdersHistory';
 
 type TLocationState = {
   background: Location;
@@ -35,7 +39,7 @@ function App() {
 
   const history = useHistory();
   let location = useLocation<TLocationState>();
-  const dispatch = useDispatch<any>();
+  const dispatch = useDispatch();
 
   let switchBack;
   if (history.action === 'PUSH' || history.action === 'REPLACE') {
@@ -67,52 +71,82 @@ function App() {
 
     return (
       <div>
+        {/* @ts-ignore */}
+        <AppHeader className={styles.header} />
         <Switch location={switchBack || location}>
           <Route path="/" exact>
-            {/* @ts-ignore */}
-            <AppHeader className={styles.header} />
             <BurgerMain setModalOpen={setModalOpen} />
             {modalStatus && (
-              <Modal setModaClose={setModaClose} header={modalHeader}>
+              <Modal onClose={setModaClose} header={modalHeader}>
                 {modalContent}
               </Modal>
             )}
           </Route>
+          <Route path="/feed" exact>
+          <Feed setModalOpen={setModalOpen} />
+          {modalStatus && (
+            <Modal onClose={setModaClose} header={modalHeader}>
+              {modalContent}
+            </Modal>
+          )}
+        </Route>
+        <ProtectedRoute path="/profile/orders" exact>
+          <OrdersHistory setModalOpen={setModalOpen} />
+          {modalStatus && (
+            <Modal onClose={setModaClose} header={modalHeader}>
+              {modalContent}
+            </Modal>
+          )}
+        </ProtectedRoute>
+        <ProtectedRoute path="/profile/orders/:id">
+          <OrderComposition />
+        </ProtectedRoute>
           <Route path="/login">
-            <AppHeader />
             <Login />
           </Route>
           <Route path="/register">
-            <AppHeader />
             <Register />
           </Route>
           <Route path="/forgot-password">
-            <AppHeader />
             <ForgotPassword />
           </Route>
           <Route path="/reset-password">
-            <AppHeader />
             <ResetPassword />
           </Route>
           <ProtectedRoute path="/profile">
-            <AppHeader />
             <Profile />
           </ProtectedRoute>
           <Route path="/ingredients/:id">
-            <AppHeader />
             <IngredientInfo />
           </Route>
+          <Route path="/feed/:id">
+            <OrderComposition />
+           </Route>
           <Route path="/">
-            <AppHeader />
             <NotFound404 />
           </Route>
         </Switch>
+
         {switchBack && (
           <Route path="/ingredients/:id">
-            <Modal setModaClose={setIngredientModalClose} header={'Детали ингредиента'}>
+            <Modal onClose={setIngredientModalClose} header={'Детали ингредиента'}>
               <IngredientDetails />
             </Modal>
           </Route>
+        )}
+        {switchBack && (
+          <Route path="/feed/:id">
+            <Modal onClose={setIngredientModalClose} header={' '}>
+              { <OrderComposition />}
+            </Modal>
+          </Route>
+        )}
+        {switchBack && (
+          <ProtectedRoute path="/profile/orders/:id">
+            <Modal onClose={setIngredientModalClose} header={' '}>
+              { <OrderComposition />}
+            </Modal>
+          </ProtectedRoute>
         )}
       </div>
     );

@@ -1,15 +1,15 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import styles from './IngredientInfo.module.css';
 import clsx from 'clsx';
+import { useSelector } from '../../utils/hooks';
 import { TItem } from '../../utils/types';
 
 
 function IngredientInfo() {
   const { id } = useParams<{id?: string}>();
-  const items = useSelector((store: any) => store.mainReducer.ingredients);
+  const items = useSelector((store) => store.mainReducer.ingredients);
   const item = items.find((el: TItem) => el._id === id);
 
   if (!item) {

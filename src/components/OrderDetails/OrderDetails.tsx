@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../utils/hooks';
 
 import styles from './OrderDetails.module.css';
 import PropTypes from 'prop-types';
@@ -8,7 +8,7 @@ import clsx from 'clsx';
 import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 function OrderDetails() {
-  const order = useSelector((store: any) => store.mainReducer.order);
+  const order = useSelector((store) => store.mainReducer.order);
   return (
     <div className={styles.main}>
       <p className={clsx(styles.order,' text text_type_digits-large')}>

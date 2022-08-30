@@ -3,27 +3,8 @@ import type { Middleware, MiddlewareAPI } from 'redux';
 import type { AppDispatch, RootState } from '../../utils/types';
 import type { TWSActions } from '../actions/wsActions';
 
-import {
-  WS_CONNECTION_CLOSED,
-  WS_CONNECTION_ERROR,
-  WS_CONNECTION_START,
-  WS_CONNECTION_CLOSE,
-  WS_CONNECTION_SUCCESS,
-  WS_GET_MESSAGE,
-  WS_SEND_MESSAGE
-} from '../actions/index';
 
-  const wsActions = {
-  wsInit: WS_CONNECTION_START,
-  wsClose: WS_CONNECTION_CLOSE,
-  wsSendMessage: WS_SEND_MESSAGE,
-  onOpen: WS_CONNECTION_SUCCESS,
-  onClose: WS_CONNECTION_CLOSED,
-  onError: WS_CONNECTION_ERROR,
-  onMessage: WS_GET_MESSAGE
-};
-
-export const socketMiddleware = (): Middleware => {
+export const socketMiddleware = (wsActions:  any): Middleware => {
     return ((store: MiddlewareAPI<AppDispatch, RootState>) => {
         let socket: WebSocket | null = null;
 

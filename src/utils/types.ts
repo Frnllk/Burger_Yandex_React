@@ -53,7 +53,8 @@ export type AppThunk<TReturn = void> = ActionCreator<
   ThunkAction<TReturn, Action, RootState, TApplicationActions>
   >;
 
- 
+export type AppThunkAction<TReturn = void> = ThunkAction<TReturn, Action, RootState, TApplicationActions>; 
+
 export type AppDispatch = typeof store.dispatch;
 
 

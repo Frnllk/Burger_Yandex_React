@@ -50,7 +50,8 @@ export type TWSActions =
   | ISendMessageAction
   | IConnectionSuccessAction
   | IConnectionErrorAction
-  | IConnectionClosedAction;
+  | IConnectionClosedAction
+;
 
 
 export const wsConnectionStart = () => {

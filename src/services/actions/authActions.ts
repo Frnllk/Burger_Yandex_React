@@ -1,5 +1,5 @@
 import { LOGIN_USER, REGISTER_USER, LOGOUT_USER, CHEK_TOKEN } from './index';
-import { AppDispatch, TUserData, RootState } from '../../utils/types';
+import { AppDispatch, AppThunkAction, TUserData, RootState } from '../../utils/types';
 import { baseUrl , checkReponse}  from '../../utils/urlConst';
 import { ThunkAction } from 'redux-thunk';
 import { AnyAction } from 'redux'
@@ -36,7 +36,7 @@ export type TAuthActions =
   | IChekTokenAction;
   
 
-export function login(data: TUserData): ThunkAction<void, RootState, unknown, AnyAction> {
+export function login(data: TUserData): AppThunkAction {
   return function (dispatch: AppDispatch) {
     fetch(<any>loginURL, {
       method: 'POST',
@@ -68,7 +68,7 @@ export function login(data: TUserData): ThunkAction<void, RootState, unknown, An
 }
 
 
-export function register(data: TUserData): ThunkAction<void, RootState, unknown, AnyAction> {
+export function register(data: TUserData):AppThunkAction {
   return function (dispatch: AppDispatch) {
     fetch(<any>registerURL, {
       method: 'POST',
@@ -101,7 +101,7 @@ export function register(data: TUserData): ThunkAction<void, RootState, unknown,
 }
 
 
-export function logout(): ThunkAction<void, RootState, unknown, AnyAction> {
+export function logout(): AppThunkAction {
   return function (dispatch: AppDispatch) {
     fetch(<any>logoutdURL, {
       method: 'POST',
@@ -131,7 +131,7 @@ export function logout(): ThunkAction<void, RootState, unknown, AnyAction> {
 }
 
 
-export function getUser(): ThunkAction<void, RootState, unknown, AnyAction> {
+export function getUser(): AppThunkAction {
   return function (dispatch: AppDispatch) {
      return fetchWithRefresh(`${authURL}/user`, {
       method: 'GET',
@@ -157,7 +157,7 @@ export function getUser(): ThunkAction<void, RootState, unknown, AnyAction> {
 }
 
 
-export function updateUser(data: TUserData): ThunkAction<void, RootState, unknown, AnyAction> {
+export function updateUser(data: TUserData): AppThunkAction {
   return function (dispatch: AppDispatch) {
     fetchWithRefresh(<any>userURL, {
       method: 'PATCH',

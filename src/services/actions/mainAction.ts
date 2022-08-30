@@ -9,23 +9,17 @@ import {
   ORDER_CLEAR,
  } from './index';
 
-import  {baseUrl}  from '../../utils/urlConst';
+import  {baseUrl , checkReponse}  from '../../utils/urlConst';
 import { getCookie } from './authActions';
 import { TItem,AppDispatch  } from '../../utils/types';
 const contentURL = new URL('ingredients', baseUrl );
 const orderURL = new URL('orders', baseUrl );
-  
-function checkResponse(response: Response) {
-  if (response.ok) {
-    return response.json();
-  }
-  return Promise.reject(`Ошибка ${response.status}`);
-}
+
 
 export function getData() {
   return function (dispatch: AppDispatch) {
     fetch(<any>contentURL)
-      .then(checkResponse)
+      .then(checkReponse)
       .then((response) => {
           dispatch({
             type: LOAD_INGREDIENTS,
@@ -51,7 +45,7 @@ export function postOrder(data: Array<TItem>) {
         ingredients: orders,
       }),
     })
-      .then(checkResponse)
+      .then(checkReponse)
       .then((response) => {
           dispatch({
             type: ORDER_NUMBER,

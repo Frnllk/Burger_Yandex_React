@@ -71,10 +71,10 @@ function App() {
 
     return (
       <div>
+        {/* @ts-ignore */}
+        <AppHeader className={styles.header} />
         <Switch location={switchBack || location}>
           <Route path="/" exact>
-            {/* @ts-ignore */}
-            <AppHeader className={styles.header} />
             <BurgerMain setModalOpen={setModalOpen} />
             {modalStatus && (
               <Modal onClose={setModaClose} header={modalHeader}>
@@ -83,7 +83,6 @@ function App() {
             )}
           </Route>
           <Route path="/feed" exact>
-          <AppHeader />
           <Feed setModalOpen={setModalOpen} />
           {modalStatus && (
             <Modal onClose={setModaClose} header={modalHeader}>
@@ -92,7 +91,6 @@ function App() {
           )}
         </Route>
         <ProtectedRoute path="/profile/orders" exact>
-          <AppHeader />
           <OrdersHistory setModalOpen={setModalOpen} />
           {modalStatus && (
             <Modal onClose={setModaClose} header={modalHeader}>
@@ -101,42 +99,34 @@ function App() {
           )}
         </ProtectedRoute>
         <ProtectedRoute path="/profile/orders/:id">
-          <AppHeader />
           <OrderComposition />
         </ProtectedRoute>
           <Route path="/login">
-            <AppHeader />
             <Login />
           </Route>
           <Route path="/register">
-            <AppHeader />
             <Register />
           </Route>
           <Route path="/forgot-password">
-            <AppHeader />
             <ForgotPassword />
           </Route>
           <Route path="/reset-password">
-            <AppHeader />
             <ResetPassword />
           </Route>
           <ProtectedRoute path="/profile">
-            <AppHeader />
             <Profile />
           </ProtectedRoute>
           <Route path="/ingredients/:id">
-            <AppHeader />
             <IngredientInfo />
           </Route>
           <Route path="/feed/:id">
-            <AppHeader />
             <OrderComposition />
            </Route>
           <Route path="/">
-            <AppHeader />
             <NotFound404 />
           </Route>
         </Switch>
+
         {switchBack && (
           <Route path="/ingredients/:id">
             <Modal onClose={setIngredientModalClose} header={'Детали ингредиента'}>

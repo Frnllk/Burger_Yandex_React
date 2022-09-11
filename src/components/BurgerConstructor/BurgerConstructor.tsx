@@ -92,7 +92,7 @@ const  BurgerConstructor: FunctionComponent<IBurgerConstructorProps> = (props) =
   const inactiveButtonStyle = bun ? {} : { opacity: 0.5, cursor: 'default' };
 
   return (
-    <div ref={dropTarget} className="mt-25 ml-4">
+    <div ref={dropTarget} className="burger-constructor mt-25 ml-4">
       {bun ? (
         <section>
           <ConstructorElement

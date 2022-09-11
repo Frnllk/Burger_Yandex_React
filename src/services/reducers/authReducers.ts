@@ -9,7 +9,7 @@ type TinitialState = {
   isAuthorized: boolean;
 }
 
-const initialState:TinitialState = {
+export const initialState:TinitialState = {
   user: {
     email: '',
     password: '',

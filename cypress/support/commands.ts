@@ -1,4 +1,8 @@
 /// <reference types="cypress" />
+
+Cypress.Commands.add('goToDeployedSite', () => {
+    cy.visit('http://project.server.students.nomoredomains.sbs/')
+  })
 // ***********************************************
 // This example commands.ts shows you how to
 // create various custom commands and overwrite

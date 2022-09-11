@@ -1,8 +1,9 @@
+
 describe('Открытие модального окна', function () {
     beforeEach(function () {
       cy.intercept('GET', 'api/ingredients', { fixture: 'ingredients.json' });
       cy.viewport(1300, 800);
-      cy.visit('http://project.server.students.nomoredomains.sbs/');
+      cy.goToDeployedSite();
     });
   
     it('Открытие окна с описанием', function () {

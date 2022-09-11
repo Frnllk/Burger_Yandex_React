@@ -1,10 +1,11 @@
+
 describe('Проверка механизма перетаскивания и оформления заказа', function () {
     beforeEach(function () {
       cy.intercept('GET', 'api/ingredients', { fixture: 'ingredients.json' });
       cy.intercept('POST', 'api/orders', { fixture: 'order.json' });
       cy.intercept('POST', 'api/auth/login', { fixture: 'login.json' });
       cy.viewport(1300, 800);
-      cy.visit('http://project.server.students.nomoredomains.sbs/');
+      cy.goToDeployedSite();
     });
   
     it('Перетаскиваем булку и оформляем заказ', function () {

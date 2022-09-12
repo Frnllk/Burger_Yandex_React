@@ -192,3 +192,13 @@ export const testMessage = {
       count: 0,
     },
   ];
+
+  export const emailTestFirst = {
+    email: 'email@mail.com',
+    password: '123',
+  };
+
+  export const emailTestSecond = {
+    email: 'gmail@mail.com',
+    password: '456',
+  };

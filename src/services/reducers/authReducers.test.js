@@ -1,5 +1,7 @@
 
 import { authReducer,initialState } from './authReducers';
+import { emailTestFirst,emailTestSecond} from '../../utils/testConsts';
+
 import * as types from '../actions';
 
 describe('auth reducer', () => {
@@ -13,45 +15,30 @@ describe('auth reducer', () => {
         initialState,
         {
           type: types.LOGIN_USER,
-          data: {
-            email: 'email@mail.com',
-            password: '123',
-          },
+          data: emailTestFirst,
         }
       )
     ).toEqual({
-      user: {
-        email: 'email@mail.com',
-        password: '123',
-      },
-      accessToken: '',
+      ...initialState,
+      user: emailTestFirst,
       isAuthorized: true,
     });
 
     expect(
       authReducer(
         {
-          user: {
-            email: 'email@mail.com',
-            password: '123',
-          },
-          accessToken: '',
+          ...initialState,
+          user: emailTestFirst ,
           isAuthorized: true,
         },
         {
           type: types.LOGIN_USER,
-          data: {
-            email: 'gmail@mail.com',
-            password: '456',
-          },
+          data: emailTestSecond,
         }
       )
     ).toEqual({
-      user: {
-        email: 'gmail@mail.com',
-        password: '456',
-      },
-      accessToken: '',
+      ...initialState,
+      user: emailTestSecond,
       isAuthorized: true,
     });
   });
@@ -62,45 +49,30 @@ describe('auth reducer', () => {
         initialState,
         {
           type: types.REGISTER_USER,
-          data: {
-            email: 'email@mail.com',
-            password: '123',
-          },
+          data: emailTestFirst,
         }
       )
     ).toEqual({
-      user: {
-        email: 'email@mail.com',
-        password: '123',
-      },
-      accessToken: '',
+      ...initialState,
+      user: emailTestFirst,
       isAuthorized: true,
     });
 
     expect(
       authReducer(
         {
-          user: {
-            email: 'email@mail.com',
-            password: '123',
-          },
-          accessToken: '',
+          ...initialState,
+          user: emailTestFirst,
           isAuthorized: true,
         },
         {
           type: types.REGISTER_USER,
-          data: {
-            email: 'gmail@mail.com',
-            password: '456',
-          },
+          data: emailTestSecond,
         }
       )
     ).toEqual({
-      user: {
-        email: 'gmail@mail.com',
-        password: '456',
-      },
-      accessToken: '',
+      ...initialState,
+      user: emailTestSecond,
       isAuthorized: true,
     });
   });
@@ -118,11 +90,8 @@ describe('auth reducer', () => {
     expect(
       authReducer(
         {
-          user: {
-            email: 'email@mail.com',
-            password: '123',
-          },
-          accessToken: '',
+          ...initialState,
+          user: emailTestFirst,
           isAuthorized: true,
         },
         {
@@ -138,45 +107,30 @@ describe('auth reducer', () => {
         initialState,
         {
           type: types.CHEK_TOKEN,
-          data: {
-            email: 'email@mail.com',
-            password: '123',
-          },
+          data: emailTestFirst,
         }
       )
     ).toEqual({
-      user: {
-        email: 'email@mail.com',
-        password: '123',
-      },
-      accessToken: '',
+      ...initialState,
+      user: emailTestFirst,
       isAuthorized: true,
     });
 
     expect(
       authReducer(
         {
-          user: {
-            email: 'email@mail.com',
-            password: '123',
-          },
-          accessToken: '',
+          ...initialState,
+          user: emailTestFirst,
           isAuthorized: true,
         },
         {
           type: types.CHEK_TOKEN,
-          data: {
-            email: 'gmail@mail.com',
-            password: '456',
-          },
+          data: emailTestSecond,
         }
       )
     ).toEqual({
-      user: {
-        email: 'gmail@mail.com',
-        password: '456',
-      },
-      accessToken: '',
+      ...initialState,
+      user: emailTestSecond,
       isAuthorized: true,
     });
   });
